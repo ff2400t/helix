@@ -133,7 +133,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
             "c" => goto_next_comment,
             "e" => goto_next_entry,
             "T" => goto_next_test,
-            "e" => goto_next_xml_element,
+            "x" => goto_next_xml_element,
             "p" => goto_next_paragraph,
             "space" => add_newline_below,
         },

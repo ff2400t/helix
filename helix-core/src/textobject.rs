@@ -262,7 +262,7 @@ pub fn textobject_treesitter(
     object_name: &str,
     slice_tree: Node,
     lang_config: &LanguageConfiguration,
-    better_capture: bool,
+    try_nested_capture: bool,
     _count: usize,
 ) -> Range {
     let get_range = move || -> Option<Range> {
@@ -277,7 +277,8 @@ pub fn textobject_treesitter(
         // // because of how treesitter s-exp work, when trying to capture the p inside of element
         // // we capture the whole p element instead.
         // // So, Here we Take the p element as the root node and then capture our inner element
-        let node = if better_capture && textobject == TextObject::Inside {
+        let node = if try_nested_capture && textobject == TextObject::Inside {
+            use crate::syntax::CapturedNode;
             let capture_name = format!("{}.{}", object_name, TextObject::Around); // eg. function.inner
             let outer_node = lang_config
                 .textobject_query()?
